@@ -16,7 +16,7 @@ namespace EndModLoader
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
         public static string ExeName { get => "TheEndIsNigh.exe"; }
-        public static string WindowTitle { get => "The End is Nigh MOD Loader v1.1"; }
+        public static string WindowTitle { get => "The End is Nigh MOD Loader v1.1 w/ EXE Modding"; }
 
         private string ModPath { get => Path.Combine(EndIsNighPath, "mods"); }
 
@@ -159,6 +159,13 @@ namespace EndModLoader
         {
             if (AppState == AppState.ReadyToPlay)
             {
+                if (File.Exists(EndIsNighPath + "backup/TheEndIsNigh -backup.exe")) // If backup exe exists restore regular from it
+                {
+                    File.Delete(Path.Combine(EndIsNighPath + ExeName));
+                    File.Copy(Path.Combine(EndIsNighPath + "backup/TheEndIsNigh -backup.exe"), Path.Combine(EndIsNighPath + ExeName));
+                }
+                else File.Copy(Path.Combine(EndIsNighPath + ExeName), Path.Combine(EndIsNighPath + "backup/TheEndIsNigh -backup.exe")); //Creates backup exe
+
                 var contains = FileSystem.ContainedFolders(EndIsNighPath, FileSystem.ModFolders).ToList();
                 if (contains.Count != 0)
                 {
@@ -197,6 +204,18 @@ namespace EndModLoader
                     {
                         // Let's not delete any more Cities of Tethys.
                         return;
+                    }
+                }
+
+                if(mod.HasExePatch)
+                {
+                    using (var stream = new FileStream(EndIsNighPath + ExeName, FileMode.Open, FileAccess.ReadWrite))
+                    {
+                        for(int i = 0; i < mod.ExeByteReplacement.Count; i++)
+                        {
+                            stream.Position = mod.ExeOffset[i];
+                            stream.WriteByte(mod.ExeByteReplacement[i]);
+                        }
                     }
                 }
 

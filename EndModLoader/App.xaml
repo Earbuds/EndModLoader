@@ -3,7 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:EndModLoader"
              StartupUri="MainWindow.xaml">
+
     <Application.Resources>
+        <local:EXEIconDisplayer x:Key="EXEIconDisplayer" />
+        
         <Style x:Key="TitleText" TargetType="TextBlock">
             <Setter Property="FontSize" Value="12" />
             <Setter Property="VerticalAlignment" Value="Bottom" />
@@ -23,6 +26,26 @@
             <Setter Property="Foreground" Value="Gray" />
             <Setter Property="VerticalAlignment" Value="Bottom" />
             <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+        </Style>
+
+        <Style x:Key="EXEIndicator" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Background" Value="OrangeRed" />
+            <Setter Property="VerticalAlignment" Value="Bottom" />
+            <Setter Property="Width" Value="15" />
+            <Setter Property="Padding" Value="4,0,4,0" />
+            <Setter Property="TextAlignment" Value="Center" />
+        </Style>
+
+        <Style x:Key="SWFIndicator" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="Background" Value="Pink" />
+            <Setter Property="VerticalAlignment" Value="Bottom" />
+            <Setter Property="Width" Value="15" />
+            <Setter Property="Padding" Value="4,0,4,0" />
+            <Setter Property="TextAlignment" Value="Center" />
         </Style>
 
         <Style x:Key="PathText" TargetType="TextBlock">
@@ -94,21 +117,31 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
-
+        
         <DataTemplate x:Key="ModListTemplate">
             <StackPanel Margin="0.2" Orientation="Vertical">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Text="{Binding Title}" Style="{StaticResource TitleText}" />
+                    <TextBlock Grid.Column="0" Text="{Binding Title}" Style="{StaticResource TitleText}"  />
                     <TextBlock Grid.Column="1" Text="{Binding Description}" Style="{StaticResource DescriptionText}"/>
+                    <Border BorderBrush="Black" BorderThickness="1" Grid.Column="2" Visibility="{Binding HasExePatch, Converter={StaticResource EXEIconDisplayer}}" Margin="1,0,1,0">
+                        <TextBlock Text="E" Style="{StaticResource EXEIndicator}" />
+                    </Border>
+
+                    <Border BorderBrush="Black" BorderThickness="1" Grid.Column="3" Visibility="{Binding HasSWFMod, Converter={StaticResource EXEIconDisplayer}}" Margin="1,0,1,0">
+                        <TextBlock Text="S" Style="{StaticResource SWFIndicator}" />
+                    </Border>
                 </Grid>
                 <Grid>
                     <TextBlock Text="{Binding Author, StringFormat='by {0}', TargetNullValue='{x:Static local:Mod.MetaFileNotFound}'}" Style="{StaticResource BottomText}"/>
                     <TextBlock Text="{Binding Version, TargetNullValue=''}" Style="{StaticResource BottomText}" TextAlignment="Right"/>
                 </Grid>
+                <Separator Margin="2.5, 5, 2.5, 5"/>
             </StackPanel>
         </DataTemplate>
     </Application.Resources>
