@@ -5,7 +5,7 @@
 ### Download HERE:
 [🤖 v1.1 w/ EXE Editing (latest)](https://github.com/Earbuds/EndModLoader/releases/download/v1.1-exe/EndModLoader.exe)
 [😼 v1.1](https://github.com/portal-chan/EndModLoader/releases/download/v1.1/EndModLoader.exe)
-[🍉 v1.0](https://github.com/portal-chan/EndModLoader/releases/download/v1.0/EndModLoader.exe)
+[🍉 v1.0](https://github.com/portal-chan/EndModLoader/releases/download/v1.0/EndModLoader.exe)   
 
 ### For players:
 Once you launch the program, assuming you have a Steam version of the game, the program will
@@ -45,7 +45,7 @@ To do this, include a file called `exepatch.xml` in the root of the .zip file al
 In order to use it correctly, format it as so:
 ```xml
 <mod>
-	<entry>0022DD26~35</entry>
+    <entry>0022DD26~35</entry>
 </mod>
 ```
 

@@ -6,7 +6,7 @@
 
     <Application.Resources>
         <local:EXEIconDisplayer x:Key="EXEIconDisplayer" />
-        
+
         <Style x:Key="TitleText" TargetType="TextBlock">
             <Setter Property="FontSize" Value="12" />
             <Setter Property="VerticalAlignment" Value="Bottom" />
@@ -117,9 +117,9 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
-        
+
         <DataTemplate x:Key="ModListTemplate">
-            <StackPanel Margin="0.2" Orientation="Vertical">
+            <StackPanel Margin="0.2,5,0.2,5" Orientation="Vertical">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -141,7 +141,7 @@
                     <TextBlock Text="{Binding Author, StringFormat='by {0}', TargetNullValue='{x:Static local:Mod.MetaFileNotFound}'}" Style="{StaticResource BottomText}"/>
                     <TextBlock Text="{Binding Version, TargetNullValue=''}" Style="{StaticResource BottomText}" TextAlignment="Right"/>
                 </Grid>
-                <Separator Margin="2.5, 5, 2.5, 5"/>
+                <Separator Margin="2.5, 5, 2.5, 0"/>
             </StackPanel>
         </DataTemplate>
     </Application.Resources>
